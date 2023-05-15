@@ -15,17 +15,17 @@ class User {
     return <String, dynamic>{
       'id': id,
       'name': name,
-      'create_at': createAt?.millisecondsSinceEpoch,
-      'update_at': updateAt?.millisecondsSinceEpoch,
+      'created_at': createAt?.millisecondsSinceEpoch.toString(),
+      'update_at': updateAt?.millisecondsSinceEpoch.toString(),
     };
   }
 
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
-      id: map['id'] as String,
-      name: map['name'] as String,
-      createAt: map['create_at'] != null ? DateTime.fromMillisecondsSinceEpoch(map['create_at'] as int) : null,
-      updateAt: map['update_at'] != null ? DateTime.fromMillisecondsSinceEpoch(map['update_at'] as int) : null,
+      id: map['id'],
+      name: map['name'],
+      // createAt: map['created_at'] != null ? DateTime.fromMillisecondsSinceEpoch(map['created_at']) : null,
+      // updateAt: map['update_at'] != null ? DateTime.fromMillisecondsSinceEpoch(map['update_at']) : null,
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:money_wallet/app/modules/login/controllers/login_controller.dart';
 
 import '../../../constant/app_constant.dart';
 import '../../../routes/app_pages.dart';
@@ -43,10 +44,18 @@ class AddAmount extends StatefulWidget {
 class _AddAmountState extends State<AddAmount> {
   final categoryController = TextEditingController();
   final catController = Get.put(CatController());
+  final LoginController loginController = Get.put(LoginController());
+
+  @override
+  void initState() {
+    loginController.getUser();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    const userName = 'Anu';
+    final userName = loginController.user.name;
     return Scaffold(
       body: SafeArea(
         child: LayoutBuilder(builder: (context, constraints) {
@@ -128,9 +137,7 @@ class _AddAmountState extends State<AddAmount> {
         }),
       ),
       floatingActionButton: FloatingActionButton.extended(
-          icon: const Icon(Icons.keyboard_arrow_right),
-          onPressed: () => Get.offAllNamed(Routes.home),
-          label: const Text('Next')),
+          icon: const Icon(Icons.keyboard_arrow_right), onPressed: () => Get.offAllNamed(Routes.home), label: const Text('Next')),
     );
   }
 

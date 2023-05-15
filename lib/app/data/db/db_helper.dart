@@ -15,7 +15,7 @@ class DbHelper {
   static Database? _db;
   static const String _dbName = 'money-wallet.db';
   static const int _dbVersion = 1;
-  static const String _transactionTable = 'transaction';
+  static const String _transactionTable = 'transactions';
   static const String _userTable = 'user';
   static const String _categoryTable = 'category';
 
@@ -61,6 +61,7 @@ class DbHelper {
 
   Future<int> insertUser(User user) async {
     Database db = await instance.database;
+    //db.delete(_userTable,where: [])
     return await db.insert(_userTable, user.toMap());
   }
 
