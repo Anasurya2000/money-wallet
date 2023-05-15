@@ -12,6 +12,7 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
+      appBar: AppBar(),
       body: LayoutBuilder(builder: (context, constraints) {
         return ConstrainedBox(
           constraints: BoxConstraints(
@@ -22,33 +23,36 @@ class SplashScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Spacer(),
-                Center(
-                  child: Image.asset(
-                    Assets.logo,
-                    width: 275,
-                    // height: 150,
-                  ),
-                ),
-                const Spacer(),
                 Text(
                   'Money Wallet',
                   style: theme.textTheme.headlineSmall,
                 ),
-                const SizedBox(height: 15),
-                Text(
-                  'One App for all your finances',
-                  style: theme.textTheme.headlineLarge,
+                const Spacer(),
+                const SizedBox(height: 60),
+                Center(
+                  child: Image.asset(
+                    Assets.logo,
+                    width: 250,
+                  ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 15),
+                const Spacer(),
+                Text(
+                  'Welcome',
+                  style: theme.textTheme.headlineSmall,
+                ),
+                Text(
+                  'Manage your money with ease and simplicity with Money Wallet.',
+                  style: theme.textTheme.bodyLarge,
+                ),
+                const SizedBox(height: 30),
                 SizedBox(
                   width: Get.width,
                   child: ConfirmationSlider(
-                    text: 'Slide to  Start',
+                    text: 'Slide to continue',
                     textStyle: const TextStyle(color: Colors.black),
-                    foregroundColor: theme.colorScheme.primary,
+                    foregroundColor: Colors.black,
                     onConfirmation: () => Get.offAllNamed(Routes.login),
-                    // onTapUp: () => Get.to(const HomeView()),
                   ),
                 ),
               ],

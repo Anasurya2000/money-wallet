@@ -6,8 +6,8 @@ import 'app/routes/app_pages.dart';
 import 'app/theme/app_theme.dart';
 
 Future<void> main() async {
-  await DbHelper.instance.database;
   WidgetsFlutterBinding.ensureInitialized();
+  await DbHelper.instance.database;
   runApp(const MyApp());
 }
 

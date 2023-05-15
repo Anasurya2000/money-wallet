@@ -16,113 +16,115 @@ class _AddAmountState extends State<AddAmount> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    const userName = 'Anu';
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              IntrinsicHeight(
-                child: Padding(
-                  padding: AppConstant.defaultPadding,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 25,
-                      ),
-                      Text(
-                        'Hi Welcome to Money Management',
-                        style: theme.textTheme.headlineMedium,
-                      ),
-                      const SizedBox(height: 5),
-                      Text(
-                        'Here you can track your Expenses easliy',
-                        style: theme.textTheme.bodyMedium,
-                      ),
-                      const SizedBox(height: 55),
-                      const Text('Amount'),
-                      const SizedBox(
-                        height: 4,
-                      ),
-                      TextFormField(
-                        style: const TextStyle(color: Colors.black),
-                        keyboardType: TextInputType.name,
-                        decoration: const InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 25),
-
-                          hintText: '₹',
-                          hintStyle: TextStyle(color: Colors.black),
-                          // prefixText: '₹',
-                          floatingLabelBehavior: FloatingLabelBehavior.never,
-                        ),
-                      ),
-                      const SizedBox(height: 55),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          FilterChip(
-                            label: const Text('Cash'),
-                            onSelected: (value) {},
-                          ),
-                          FilterChip(
-                            label: const Text('Bank'),
-                            onSelected: (value) {},
-                          ),
-                          FilterChip(
-                            label: const Text('Salary'),
-                            onSelected: (value) {},
-                          ),
-                          FilterChip(
-                            label: const Text('Credit'),
-                            onSelected: (value) {},
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 15),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          GestureDetector(
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: theme.colorScheme.primary,
-                                  ),
-                                  borderRadius: BorderRadius.circular(6)),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    '+',
-                                    style: TextStyle(
-                                      color: theme.colorScheme.primary,
-                                    ),
-                                  ),
-                                  Text(
-                                    'Add Category',
-                                    style: TextStyle(
-                                      color: theme.colorScheme.primary,
-                                    ),
-                                  ),
-                                ],
-                              ),
+      body: SafeArea(
+        child: Padding(
+          padding: AppConstant.defaultPadding,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                IntrinsicHeight(
+                  child: Padding(
+                    padding: AppConstant.defaultPadding,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text.rich(
+                          TextSpan(
+                            text: 'Hello, ',
+                            style: theme.textTheme.headlineMedium?.copyWith(
+                              color: theme.colorScheme.primary,
                             ),
-                            onTap: () => addCategory(context),
+                            children: [
+                              TextSpan(
+                                text: userName,
+                                style: theme.textTheme.headlineMedium?.copyWith(
+                                  color: theme.colorScheme.primary,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                      const SizedBox(height: 15),
-                      Text(
-                        categoryController.text,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ],
+                        ),
+                        const SizedBox(height: 5),
+                        Text(
+                          'How much money do you have? 💵',
+                          style: theme.textTheme.bodyLarge,
+                        ),
+                        const SizedBox(height: 20),
+                        TextFormField(
+                          keyboardType: TextInputType.number,
+                          decoration: const InputDecoration(
+                            prefixText: '₹ ',
+                            hintText: 'Please enter your amount',
+                          ),
+                        ),
+                        const SizedBox(height: 55),
+                        Wrap(
+                          children: [
+                            FilterChip(
+                              label: const Text('Cash'),
+                              onSelected: (value) {},
+                            ),
+                            FilterChip(
+                              label: const Text('Bank'),
+                              onSelected: (value) {},
+                            ),
+                            FilterChip(
+                              label: const Text('Salary'),
+                              onSelected: (value) {},
+                            ),
+                            FilterChip(
+                              label: const Text('Credit'),
+                              onSelected: (value) {},
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 15),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            GestureDetector(
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: theme.colorScheme.primary,
+                                    ),
+                                    borderRadius: BorderRadius.circular(6)),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      '+',
+                                      style: TextStyle(
+                                        color: theme.colorScheme.primary,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Add Category',
+                                      style: TextStyle(
+                                        color: theme.colorScheme.primary,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              onTap: () => addCategory(context),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 15),
+                        Text(
+                          categoryController.text,
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
