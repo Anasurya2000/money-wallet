@@ -14,7 +14,7 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     final body = [
       Home(),
-      const Graphchat(),
+      const GraphChart(),
     ];
     return WillPopScope(
       onWillPop: () async {

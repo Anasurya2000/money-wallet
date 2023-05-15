@@ -5,8 +5,8 @@ import 'package:slide_to_confirm/slide_to_confirm.dart';
 import '../../../constant/assets.dart';
 import '../../../routes/app_pages.dart';
 
-class SlapshScreen extends StatelessWidget {
-  const SlapshScreen({super.key});
+class SplashScreen extends StatelessWidget {
+  const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

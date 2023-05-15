@@ -4,14 +4,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_echarts/flutter_echarts.dart';
 
-class Graphchat extends StatefulWidget {
-  const Graphchat({Key? key}) : super(key: key);
+class GraphChart extends StatefulWidget {
+  const GraphChart({Key? key}) : super(key: key);
 
   @override
-  _GraphchatState createState() => _GraphchatState();
+  State<GraphChart> createState() => _GraphChartState();
 }
 
-class _GraphchatState extends State<Graphchat> {
+class _GraphChartState extends State<GraphChart> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   List<Map<String, Object>> _data1 = [

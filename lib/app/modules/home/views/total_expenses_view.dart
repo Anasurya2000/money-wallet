@@ -136,7 +136,7 @@ class _TotalExpenseState extends State<TotalExpense> {
   Future<dynamic> addCategory(BuildContext context) {
     return showModalBottomSheet(
         context: context,
-        builder: (BuildContext) {
+        builder: (context) {
           return Container(
             // height: 270,
             width: double.infinity,
