@@ -1,34 +1,35 @@
 name: money_wallet
-version: 1.0.0+1
-publish_to: none
 description: A new Flutter project.
-environment: 
-  sdk: '>=2.19.6 <3.0.0'
 
-dependencies: 
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
   cupertino_icons: ^1.0.2
   get: ^4.6.5
-  flutter: 
-    sdk: flutter
+  path: ^1.8.3
   slide_to_confirm: ^1.1.0
   google_fonts: ^4.0.4
   salomon_bottom_bar: ^3.3.2
   number_display: ^3.0.0
   flutter_echarts: ^2.4.0
   sqflite: ^2.2.8+2
-  path: ^1.8.3
-  
-   
-  
 
-dev_dependencies: 
-  flutter_lints: 2.0.1
-  flutter_test: 
+dev_dependencies:
+  flutter_test:
     sdk: flutter
 
-flutter: 
+  flutter_lints: ^2.0.0
+
+flutter:
   uses-material-design: true
 
   assets:
     - assets/icons/
-

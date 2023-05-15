@@ -1,4 +1,4 @@
-package parentcontroller.com.parentcontroller
+package com.example.moneywallet.money_wallet
 
 import io.flutter.embedding.android.FlutterActivity
 
