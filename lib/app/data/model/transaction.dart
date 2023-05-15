@@ -1,20 +1,18 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
 class Transactions {
-  int id;
-  double amount;
-  int date;
-  bool isIncome;
-  int categoryId;
+  int? id;
+  double? amount;
+  int? date;
+  bool? isIncome;
+  int? categoryId;
   DateTime? createAt;
   DateTime? updateAt;
 
   Transactions({
-    required this.id,
-    required this.amount,
-    required this.categoryId,
-    required this.date,
-    required this.isIncome,
+    this.id,
+    this.amount,
+    this.categoryId,
+    this.date,
+    this.isIncome,
     this.createAt,
     this.updateAt,
   });

@@ -1,12 +1,12 @@
 class User {
-  String id;
-  String name;
+  String? id;
+  String? name;
   DateTime? createAt;
   DateTime? updateAt;
 
   User({
-    required this.id,
-    required this.name,
+    this.id,
+    this.name,
     this.createAt,
     this.updateAt,
   });
