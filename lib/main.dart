@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:parentcontroller/app/theme/app_theme.dart';
 
 import 'app/routes/app_pages.dart';
+import 'app/theme/app_theme.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: GetMaterialApp(
-        title: "Application",
+        title: "Money Wallet",
         debugShowCheckedModeBanner: false,
         initialRoute: AppPages.initial,
         getPages: AppPages.routes,

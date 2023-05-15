@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CustomeCostDetails extends StatelessWidget {
-  const CustomeCostDetails({
+class CustomCostDetails extends StatelessWidget {
+  const CustomCostDetails({
     super.key,
     required this.data,
     required this.icon,

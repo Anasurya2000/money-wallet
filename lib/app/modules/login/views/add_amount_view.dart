@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:parentcontroller/app/routes/app_pages.dart';
 
-import '../../../constant/appconstant.dart';
+import '../../../constant/app_constant.dart';
+import '../../../routes/app_pages.dart';
 
 class AddAmount extends StatefulWidget {
   const AddAmount({super.key});
@@ -127,7 +127,9 @@ class _AddAmountState extends State<AddAmount> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-          icon: const Icon(Icons.keyboard_arrow_right), onPressed: () => Get.offAllNamed(Routes.home), label: const Text('Next')),
+          icon: const Icon(Icons.keyboard_arrow_right),
+          onPressed: () => Get.offAllNamed(Routes.home),
+          label: const Text('Next')),
     );
   }
 

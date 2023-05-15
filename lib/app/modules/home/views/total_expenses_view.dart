@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:parentcontroller/app/routes/app_pages.dart';
 
-import '../../../constant/appconstant.dart';
+import '../../../constant/app_constant.dart';
+import '../../../routes/app_pages.dart';
 
-class totalincome extends StatefulWidget {
-  const totalincome({super.key});
+class TotalExpense extends StatefulWidget {
+  const TotalExpense({super.key});
 
   @override
-  State<totalincome> createState() => _totalincomeState();
+  State<TotalExpense> createState() => _TotalExpenseState();
 }
 
-class _totalincomeState extends State<totalincome> {
+class _TotalExpenseState extends State<TotalExpense> {
   final categoryController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -33,12 +33,12 @@ class _totalincomeState extends State<totalincome> {
                         height: 25,
                       ),
                       Text(
-                        'Total Income',
+                        'Total Expenses',
                         style: theme.textTheme.headlineMedium,
                       ),
                       const SizedBox(height: 5),
                       Text(
-                        'Here you can track your Incomes easliy',
+                        'Here you can track your Expenses easliy',
                         style: theme.textTheme.bodyMedium,
                       ),
                       const SizedBox(height: 55),
@@ -114,10 +114,10 @@ class _totalincomeState extends State<totalincome> {
                         ],
                       ),
                       const SizedBox(height: 15),
-                      Text(
-                        categoryController.text,
-                        style: const TextStyle(color: Colors.white),
-                      ),
+                      // Text(
+                      //   categoryController.text,
+                      //   style: const TextStyle(color: Colors.white),
+                      // ),
                     ],
                   ),
                 ),
@@ -127,7 +127,9 @@ class _totalincomeState extends State<totalincome> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-          icon: const Icon(Icons.keyboard_arrow_right), onPressed: () => Get.offAllNamed(Routes.home), label: const Text('Next')),
+          icon: const Icon(Icons.keyboard_arrow_right),
+          onPressed: () => Get.offAllNamed(Routes.home),
+          label: const Text('Next')),
     );
   }
 
@@ -176,11 +178,12 @@ class _totalincomeState extends State<totalincome> {
                         onPressed: () {
                           // Get.to(categoryController.text);
                           // Get.toNamed(Routes.home);
-                          setState(() {
-                            const totalincome();
-                            // categoryController.clear();
-                            Get.back();
-                          });
+                          // setState(() {
+                          const CategoriesType();
+                          // categoryController.clear();
+                          // Get.back();
+                          // categoryController.clear();
+                          // });
                           // categoryController.clear();
                         }),
                   ],
@@ -189,5 +192,45 @@ class _totalincomeState extends State<totalincome> {
             ),
           );
         });
+  }
+}
+
+class CategoriesType extends StatefulWidget {
+  const CategoriesType({super.key});
+
+  @override
+  State<CategoriesType> createState() => _CategoriesTypeState();
+}
+
+class _CategoriesTypeState extends State<CategoriesType> {
+  final categoryController = TextEditingController();
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 13),
+          child: Column(
+            children: [
+              TextFormField(
+                decoration: const InputDecoration(
+                  hintText: 'Expenses Title ',
+                  border: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
+                  ),
+                ),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.amber,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Text(categoryController.text),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
