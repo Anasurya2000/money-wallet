@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:money_wallet/app/data/db/db_helper.dart';
 
 import 'app/routes/app_pages.dart';
 import 'app/theme/app_theme.dart';
 
-void main() {
+Future<void> main() async {
+  await DbHelper.instance.database;
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }

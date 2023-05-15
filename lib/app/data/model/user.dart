@@ -1,12 +1,12 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 
-class Userdata {
+
+class User {
   String id;
   String name;
   DateTime? createAt;
   DateTime? updateAt;
 
-  Userdata({
+  User({
     required this.id,
     required this.name,
     this.createAt,
@@ -22,8 +22,8 @@ class Userdata {
     };
   }
 
-  factory Userdata.fromMap(Map<String, dynamic> map) {
-    return Userdata(
+  factory User.fromMap(Map<String, dynamic> map) {
+    return User(
       id: map['id'] as String,
       name: map['name'] as String,
       createAt: map['create_at'] != null ? DateTime.fromMillisecondsSinceEpoch(map['create_at'] as int) : null,

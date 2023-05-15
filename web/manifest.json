@@ -1,6 +1,6 @@
 {
-    "name": "parentcontroller",
-    "short_name": "parentcontroller",
+    "name": "money_wallet",
+    "short_name": "money_wallet",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
