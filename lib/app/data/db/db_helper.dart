@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../model/user.dart';
+
 class DbHelper {
   static final DbHelper instance = DbHelper._internal();
   DbHelper._internal();
@@ -53,5 +55,24 @@ class DbHelper {
       update_at TEXT
     )
 ''');
+  }
+
+  Future<int> insertUser(User user) async {
+    Database db = await instance.database;
+    return await db.insert(_userTable, user.toMap());
+  }
+
+  Future<int> updateUser(User user) async {
+    Database db = await instance.database;
+    return await db.update(_userTable, user.toMap(), where: 'id = ?', whereArgs: [user.id]);
+  }
+
+  Future<User?> getUser() async {
+    Database db = await instance.database;
+    List<Map<String, dynamic>> maps = await db.query(_userTable);
+    if (maps.isNotEmpty) {
+      return User.fromMap(maps.first);
+    }
+    return null;
   }
 }

@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "parentcontroller.com" "\0"
-            VALUE "FileDescription", "parentcontroller" "\0"
+            VALUE "CompanyName", "com.example.moneywallet" "\0"
+            VALUE "FileDescription", "money_wallet" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "parentcontroller" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2023 parentcontroller.com. All rights reserved." "\0"
-            VALUE "OriginalFilename", "parentcontroller.exe" "\0"
-            VALUE "ProductName", "parentcontroller" "\0"
+            VALUE "InternalName", "money_wallet" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2023 com.example.moneywallet. All rights reserved." "\0"
+            VALUE "OriginalFilename", "money_wallet.exe" "\0"
+            VALUE "ProductName", "money_wallet" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
