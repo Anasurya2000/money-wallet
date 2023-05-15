@@ -58,44 +58,6 @@ class LoginView extends GetView<LoginController> {
                         ),
                         const SizedBox(height: 55),
                         const Spacer(),
-                        // Container(
-                        //   decoration: BoxDecoration(
-                        //     color: theme.colorScheme.primary,
-                        //     // gradient: LinearGradient(
-                        //     //   colors: [
-                        //     //     theme.colorScheme.primary,
-                        //     //     theme.colorScheme.secondary,
-                        //     //   ],
-                        //     //   begin: Alignment.topCenter,
-                        //     //   end: Alignment.bottomCenter,
-                        //     // ),
-                        //     borderRadius: BorderRadius.circular(30),
-                        //     border: Border.all(
-                        //       color: theme.colorScheme.primary,
-                        //       width: 0.5,
-                        //     ),
-                        //   ),
-                        //   child: Directionality(
-                        //     textDirection: TextDirection.rtl,
-                        //     child: OutlinedButton.icon(
-                        //       style: OutlinedButton.styleFrom(
-                        //         minimumSize: const Size.fromHeight(50),
-                        //         side: BorderSide.none,
-                        //         foregroundColor: Colors.white,
-                        //       ),
-                        //       onPressed: () => Get.to(() => const AddAmount()),
-                        //       label: const Text(
-                        //         'Next',
-                        //         style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-                        //       ),
-                        //       icon: const Icon(
-                        //         Icons.arrow_back,
-                        //         color: Colors.black,
-                        //         size: 20,
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
                         Directionality(
                           textDirection: TextDirection.rtl,
                           child: ElevatedButton.icon(

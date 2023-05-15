@@ -1,9 +1,9 @@
+import 'package:action_slider/action_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:slide_to_confirm/slide_to_confirm.dart';
+import 'package:money_wallet/app/routes/app_pages.dart';
 
 import '../../../constant/assets.dart';
-import '../../../routes/app_pages.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -32,7 +32,7 @@ class SplashScreen extends StatelessWidget {
                 Center(
                   child: Image.asset(
                     Assets.logo,
-                    width: 250,
+                    width: 230,
                   ),
                 ),
                 const SizedBox(height: 15),
@@ -46,13 +46,20 @@ class SplashScreen extends StatelessWidget {
                   style: theme.textTheme.bodyLarge,
                 ),
                 const SizedBox(height: 30),
-                SizedBox(
-                  width: Get.width,
-                  child: ConfirmationSlider(
-                    text: 'Slide to continue',
-                    textStyle: const TextStyle(color: Colors.black),
-                    foregroundColor: Colors.black,
-                    onConfirmation: () => Get.offAllNamed(Routes.login),
+                Center(
+                  child: ActionSlider.standard(
+                    action: (controller) async {
+                      controller.loading();
+                      await Future.delayed(const Duration(seconds: 2));
+                      controller.success();
+                      await Future.delayed(const Duration(seconds: 1));
+                      Get.offAllNamed(Routes.login);
+                    },
+                    backgroundColor: Colors.white,
+                    child: const Text(
+                      'Slide to continue',
+                      style: TextStyle(color: Colors.black),
+                    ),
                   ),
                 ),
               ],
