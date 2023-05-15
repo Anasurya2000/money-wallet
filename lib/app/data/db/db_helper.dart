@@ -9,7 +9,7 @@ class DbHelper {
   factory DbHelper() => instance;
 
   static Database? _db;
-  static const String _dbuser = 'moneywallet.db';
+  static const String _dbName = 'money-wallet.db';
   static const int _dbVersion = 1;
   static const String _transactionTable = 'transaction';
   static const String _userTable = 'user';
@@ -22,7 +22,7 @@ class DbHelper {
   }
 
   _initDatabase() async {
-    String path = join(await getDatabasesPath(), _dbuser);
+    String path = join(await getDatabasesPath(), _dbName);
     return await openDatabase(path, version: _dbVersion, onCreate: _onCreate);
   }
 

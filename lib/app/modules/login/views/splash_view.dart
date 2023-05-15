@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:parentcontroller/app/constant/assets.dart';
-import 'package:parentcontroller/app/routes/app_pages.dart';
 import 'package:slide_to_confirm/slide_to_confirm.dart';
 
-class SlapshScreen extends StatelessWidget {
-  const SlapshScreen({super.key});
+import '../../../constant/assets.dart';
+import '../../../routes/app_pages.dart';
+
+class SplashScreen extends StatelessWidget {
+  const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

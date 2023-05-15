@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:parentcontroller/app/routes/app_pages.dart';
 
-import '../../../constant/appconstant.dart';
+import '../../../constant/app_constant.dart';
+import '../../../routes/app_pages.dart';
 
-class totalexpenses extends StatefulWidget {
-  const totalexpenses({super.key});
+class TotalIncome extends StatefulWidget {
+  const TotalIncome({super.key});
 
   @override
-  State<totalexpenses> createState() => _totalexpensesState();
+  State<TotalIncome> createState() => _TotalIncomeState();
 }
 
-class _totalexpensesState extends State<totalexpenses> {
+class _TotalIncomeState extends State<TotalIncome> {
   final categoryController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -33,12 +33,12 @@ class _totalexpensesState extends State<totalexpenses> {
                         height: 25,
                       ),
                       Text(
-                        'Total Expenses',
+                        'Total Income',
                         style: theme.textTheme.headlineMedium,
                       ),
                       const SizedBox(height: 5),
                       Text(
-                        'Here you can track your Expenses easliy',
+                        'Here you can track your Incomes easliy',
                         style: theme.textTheme.bodyMedium,
                       ),
                       const SizedBox(height: 55),
@@ -114,10 +114,10 @@ class _totalexpensesState extends State<totalexpenses> {
                         ],
                       ),
                       const SizedBox(height: 15),
-                      // Text(
-                      //   categoryController.text,
-                      //   style: const TextStyle(color: Colors.white),
-                      // ),
+                      Text(
+                        categoryController.text,
+                        style: const TextStyle(color: Colors.white),
+                      ),
                     ],
                   ),
                 ),
@@ -127,14 +127,16 @@ class _totalexpensesState extends State<totalexpenses> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-          icon: const Icon(Icons.keyboard_arrow_right), onPressed: () => Get.offAllNamed(Routes.home), label: const Text('Next')),
+          icon: const Icon(Icons.keyboard_arrow_right),
+          onPressed: () => Get.offAllNamed(Routes.home),
+          label: const Text('Next')),
     );
   }
 
   Future<dynamic> addCategory(BuildContext context) {
     return showModalBottomSheet(
         context: context,
-        builder: (BuildContext) {
+        builder: (context) {
           return Container(
             // height: 270,
             width: double.infinity,
@@ -176,12 +178,11 @@ class _totalexpensesState extends State<totalexpenses> {
                         onPressed: () {
                           // Get.to(categoryController.text);
                           // Get.toNamed(Routes.home);
-                          // setState(() {
-                          const Categoriestype();
-                          // categoryController.clear();
-                          // Get.back();
-                          // categoryController.clear();
-                          // });
+                          setState(() {
+                            const TotalIncome();
+                            // categoryController.clear();
+                            Get.back();
+                          });
                           // categoryController.clear();
                         }),
                   ],
@@ -190,45 +191,5 @@ class _totalexpensesState extends State<totalexpenses> {
             ),
           );
         });
-  }
-}
-
-class Categoriestype extends StatefulWidget {
-  const Categoriestype({super.key});
-
-  @override
-  State<Categoriestype> createState() => _CategoriestypeState();
-}
-
-class _CategoriestypeState extends State<Categoriestype> {
-  final categoryController = TextEditingController();
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 13),
-          child: Column(
-            children: [
-              TextFormField(
-                decoration: const InputDecoration(
-                  hintText: 'Expenses Title ',
-                  border: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black),
-                  ),
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.amber,
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: Text(categoryController.text),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
   }
 }

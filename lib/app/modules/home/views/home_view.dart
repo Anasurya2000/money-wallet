@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:parentcontroller/app/modules/home/views/totalexpenses_view.dart';
-import 'package:parentcontroller/app/modules/home/views/totalincome_view.dart';
-import 'package:parentcontroller/app/modules/home/views/widget/custom_icons.dart';
-import 'package:parentcontroller/app/modules/login/views/add_amount_view.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import '../../graph/views/graph_view.dart';
 import '../controllers/home_controller.dart';
+import 'total_expenses_view.dart';
+import 'total_income_view.dart';
+import 'widget/custom_icons.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
@@ -15,7 +14,7 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     final body = [
       Home(),
-      const Graphchat(),
+      const GraphChart(),
     ];
     return WillPopScope(
       onWillPop: () async {
@@ -89,10 +88,13 @@ class Home extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  CustomeCostDetails(icon: (Icons.call_made), data: 'Income', onPressed: () => Get.to(() => const totalincome())),
-                  CustomeCostDetails(
-                      icon: (Icons.call_received), data: 'Expenses', onPressed: () => Get.to(() => const totalexpenses())),
-                  CustomeCostDetails(data: 'Add', icon: (Icons.add), onPressed: () {}
+                  CustomCostDetails(
+                      icon: (Icons.call_made), data: 'Income', onPressed: () => Get.to(() => const TotalIncome())),
+                  CustomCostDetails(
+                      icon: (Icons.call_received),
+                      data: 'Expenses',
+                      onPressed: () => Get.to(() => const TotalExpense())),
+                  CustomCostDetails(data: 'Add', icon: (Icons.add), onPressed: () {}
                       // => Get.to(() => const AddAmount())
                       ),
                 ],
@@ -125,7 +127,7 @@ class Home extends StatelessWidget {
   Future<dynamic> addCategory(BuildContext context) {
     return showModalBottomSheet(
         context: context,
-        builder: (BuildContext) {
+        builder: (context) {
           final theme = Theme.of(context);
           return Container(
             height: 290,

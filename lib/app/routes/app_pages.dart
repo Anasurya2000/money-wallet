@@ -6,7 +6,7 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
-import '../modules/login/views/slapsh_view.dart';
+import '../modules/login/views/splash_view.dart';
 
 part 'app_routes.dart';
 
@@ -26,10 +26,10 @@ class AppPages {
       page: () => const LoginView(),
       binding: LoginBinding(),
     ),
-    GetPage(name: _Paths.root, page: () => const SlapshScreen()),
+    GetPage(name: _Paths.root, page: () => const SplashScreen()),
     GetPage(
       name: _Paths.graph,
-      page: () => const Graphchat(),
+      page: () => const GraphChart(),
       binding: GraphBinding(),
     ),
   ];

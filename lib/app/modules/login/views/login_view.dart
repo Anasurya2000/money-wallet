@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:parentcontroller/app/constant/appconstant.dart';
-import 'package:parentcontroller/app/modules/login/views/add_amount_view.dart';
 
+import '../../../constant/app_constant.dart';
 import '../controllers/login_controller.dart';
+import 'add_amount_view.dart';
 
 class LoginView extends GetView<LoginController> {
   const LoginView({Key? key}) : super(key: key);
