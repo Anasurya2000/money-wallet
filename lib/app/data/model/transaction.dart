@@ -22,22 +22,22 @@ class Transactions {
       'id': id,
       'amount': amount,
       'date': date,
-      'isIncome': isIncome,
+      'isIncome': isIncome != null ? (isIncome! ? 1 : 0) : null,
       'categoryId': categoryId,
-      'create_at': createAt?.millisecondsSinceEpoch,
-      'update_at': updateAt?.millisecondsSinceEpoch,
+      'create_at': createAt?.toIso8601String(),
+      'update_at': updateAt?.toIso8601String(),
     };
   }
 
   factory Transactions.fromMap(Map<String, dynamic> map) {
     return Transactions(
       id: map['id'] as int,
-      amount: map['amount'] as double,
-      date: map['date'] as int,
-      isIncome: map['isIncome'] as bool,
-      categoryId: map['categoryId'] as int,
-      createAt: map['create_at'] != null ? DateTime.fromMillisecondsSinceEpoch(map['create_at'] as int) : null,
-      updateAt: map['update_at'] != null ? DateTime.fromMillisecondsSinceEpoch(map['update_at'] as int) : null,
+      amount: map['amount'],
+      date: map['date'],
+      isIncome: map['isIncome'] == 1 ? true : false,
+      categoryId: map['categoryId'],
+      createAt: map['create_at'] != null ? DateTime.parse(map['create_at']) : null,
+      updateAt: map['update_at'] != null ? DateTime.parse(map['update_at']) : null,
     );
   }
 }

@@ -55,7 +55,7 @@ class _AddAmountState extends State<AddAmount> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final userName = loginController.user.name;
+
     return Scaffold(
       body: SafeArea(
         child: LayoutBuilder(builder: (context, constraints) {
@@ -68,23 +68,23 @@ class _AddAmountState extends State<AddAmount> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 50),
-                    Text.rich(
-                      TextSpan(
-                        text: 'Hello, ',
-                        style: theme.textTheme.headlineMedium?.copyWith(
-                          color: theme.colorScheme.primary,
-                        ),
-                        children: [
+                    Obx(() => Text.rich(
                           TextSpan(
-                            text: userName,
+                            text: 'Hello, ',
                             style: theme.textTheme.headlineMedium?.copyWith(
                               color: theme.colorScheme.primary,
-                              fontWeight: FontWeight.bold,
                             ),
+                            children: [
+                              TextSpan(
+                                text: loginController.user.name,
+                                style: theme.textTheme.headlineMedium?.copyWith(
+                                  color: theme.colorScheme.primary,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
+                        )),
                     const SizedBox(height: 5),
                     Text(
                       'How much money do you have? 💵',
@@ -137,7 +137,9 @@ class _AddAmountState extends State<AddAmount> {
         }),
       ),
       floatingActionButton: FloatingActionButton.extended(
-          icon: const Icon(Icons.keyboard_arrow_right), onPressed: () => Get.offAllNamed(Routes.home), label: const Text('Next')),
+          icon: const Icon(Icons.keyboard_arrow_right),
+          onPressed: () => Get.offAllNamed(Routes.home),
+          label: const Text('Next')),
     );
   }
 

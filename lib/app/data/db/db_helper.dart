@@ -34,8 +34,8 @@ class DbHelper {
     db.execute(''' 
       CREATE TABLE $_transactionTable(
       id TEXT PRIMARY KEY,
-      amount INTEGER,
-      isIncome TEXT,
+      amount REAL,
+      isIncome INT,
       categoryId INT,
       created_at TEXT,
       update_at TEXT
@@ -44,15 +44,14 @@ class DbHelper {
     db.execute(''' 
       CREATE TABLE $_userTable(
       id TEXT PRIMARY KEY,
-      name TEXT,
-      created_at TEXT,
-      update_at TEXT
+      name TEXT
     )
 ''');
     db.execute(''' 
       CREATE TABLE $_categoryTable(
       id TEXT PRIMARY KEY,
       name TEXT,
+      type TEXT,
       created_at TEXT,
       update_at TEXT
     )
@@ -61,7 +60,6 @@ class DbHelper {
 
   Future<int> insertUser(User user) async {
     Database db = await instance.database;
-    //db.delete(_userTable,where: [])
     return await db.insert(_userTable, user.toMap());
   }
 

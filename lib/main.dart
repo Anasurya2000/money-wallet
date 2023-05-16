@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:money_wallet/app/data/db/db_helper.dart';
 
 import 'app/routes/app_pages.dart';
@@ -8,6 +9,7 @@ import 'app/theme/app_theme.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DbHelper.instance.database;
+  await GetStorage.init();
   runApp(const MyApp());
 }
 

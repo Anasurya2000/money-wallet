@@ -1,11 +1,9 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
 class Category {
   int? id;
   String? name;
   String? type;
-  DateTime? createAt;
-  DateTime? updateAt;
+  DateTime? createAt = DateTime.now();
+  DateTime? updateAt = DateTime.now();
   Category({
     this.id,
     this.name,
@@ -19,18 +17,18 @@ class Category {
       'id': id,
       'name': name,
       'type': type,
-      'create_at': createAt?.millisecondsSinceEpoch,
-      'update_at': updateAt?.millisecondsSinceEpoch,
+      'create_at': createAt?.toIso8601String(),
+      'update_at': updateAt?.toIso8601String(),
     };
   }
 
   factory Category.fromMap(Map<String, dynamic> map) {
     return Category(
-      id: map['id'] as int,
-      name: map['name'] as String,
-      type: map['type'] as String,
-      createAt: map['create_at'] != null ? DateTime.fromMillisecondsSinceEpoch(map['create_at'] as int) : null,
-      updateAt: map['update_at'] != null ? DateTime.fromMillisecondsSinceEpoch(map['update_at'] as int) : null,
+      id: map['id'],
+      name: map['name'],
+      type: map['type'],
+      createAt: map['create_at'] != null ? DateTime.parse(map['create_at']) : null,
+      updateAt: map['update_at'] != null ? DateTime.parse(map['update_at']) : null,
     );
   }
 }

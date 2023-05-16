@@ -7,12 +7,10 @@ class CategoryController extends GetxController {
   List<Category> get category => _category;
 
   Future<void> createCategory(Category category) async {
-    final category = Category();
     await DbHelper.instance.insertCategory(category);
   }
 
   Future<void> updateCategory(Category category) async {
-    final category = Category();
     await DbHelper.instance.updateCategory(category);
   }
 
@@ -21,9 +19,33 @@ class CategoryController extends GetxController {
     _category.value = category;
   }
 
+  final List<Category> suggestions = <Category>[
+    Category(name: 'Salary', type: 'income'),
+    Category(name: 'Saving', type: 'income'),
+    Category(name: 'Credit', type: 'income'),
+    Category(name: 'Food', type: 'expense'),
+    Category(name: 'Transport', type: 'expense'),
+    Category(name: 'Shopping', type: 'expense'),
+    Category(name: 'Entertainment', type: 'expense'),
+    Category(name: 'Health', type: 'expense'),
+    Category(name: 'Education', type: 'expense'),
+    Category(name: 'Gift', type: 'expense'),
+    Category(name: 'Other', type: 'expense'),
+  ];
+
+  addDummyCategory() async {
+    final List<Category> category = await getCategory();
+    if (category.isEmpty) {
+      for (final category in suggestions) {
+        await createCategory(category);
+      }
+    }
+  }
+
   @override
   void onInit() {
     getCategory();
+    addDummyCategory();
     super.onInit();
   }
 }
