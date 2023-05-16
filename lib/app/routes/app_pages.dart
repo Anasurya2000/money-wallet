@@ -18,7 +18,7 @@ class AppPages {
   static final bool isLogin = StorageHelper.isLogin;
   static final bool isAmountAdded = StorageHelper.isAmountAdded;
 
-  static String initial = isLogin ? (isAmountAdded ? _Paths.home : _Paths.addAmount) : _Paths.login;
+  static String initial = isLogin ? (isAmountAdded ? _Paths.home : _Paths.addAmount) : _Paths.root;
 
   static final routes = [
     GetPage(
