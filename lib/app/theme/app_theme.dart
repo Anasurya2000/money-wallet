@@ -13,7 +13,7 @@ class AppTheme {
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           foregroundColor: Colors.white,
-          minimumSize: const Size.fromHeight(50),
+          minimumSize: const Size.fromHeight(45),
           backgroundColor: Colors.green,
           textStyle: const TextStyle(fontWeight: FontWeight.bold),
         ),

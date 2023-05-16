@@ -1,13 +1,19 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:money_wallet/app/data/db/db_helper.dart';
 import 'package:money_wallet/app/data/model/category.dart';
 
 class CategoryController extends GetxController {
+
+  final categoryFormKey = GlobalKey<FormState>();
+  final nameController = TextEditingController();
+
   final RxList<Category> _category = <Category>[].obs;
   List<Category> get category => _category;
 
   Future<void> createCategory(Category category) async {
     await DbHelper.instance.insertCategory(category);
+    getCategory();
   }
 
   Future<void> updateCategory(Category category) async {
@@ -16,7 +22,9 @@ class CategoryController extends GetxController {
 
   getCategory() async {
     final category = await DbHelper.instance.getCategory();
-    _category.value = category;
+    if (category != null) {
+      _category.value = category;
+    }
   }
 
   final List<Category> suggestions = <Category>[
@@ -34,18 +42,36 @@ class CategoryController extends GetxController {
   ];
 
   addDummyCategory() async {
-    final List<Category> category = await getCategory();
-    if (category.isEmpty) {
-      for (final category in suggestions) {
-        await createCategory(category);
+    getCategory();
+    for (final Category item in suggestions) {
+      final bool isExist = category.any((element) => element.name == item.name);
+      if (!isExist) {
+        await createCategory(item);
       }
     }
+    getCategory();
   }
+
+  List<Category> getCategoryByType(String type) {
+    final List<Category> category = _category.where((element) => element.type == type).toList();
+    return category;
+  }
+
+  List<Category> incomeCategory() {
+    return getCategoryByType('income');
+  }
+
+  List<Category> expenseCategory() {
+    return getCategoryByType('expense');
+  }
+
+  final Rx<Category> _selectedCategory = Category(name: 'Salary', type: 'income').obs;
+  Category get selectedCategory => _selectedCategory.value;
+  set selectedCategory(Category value) => _selectedCategory.value = value;
 
   @override
   void onInit() {
     getCategory();
-    addDummyCategory();
     super.onInit();
   }
 }

@@ -1,7 +1,7 @@
 class Transactions {
   int? id;
   double? amount;
-  int? date;
+  DateTime? date;
   bool? isIncome;
   int? categoryId;
   DateTime? createAt;
@@ -19,9 +19,8 @@ class Transactions {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
       'amount': amount,
-      'date': date,
+      'date': date?.toIso8601String(),
       'isIncome': isIncome != null ? (isIncome! ? 1 : 0) : null,
       'categoryId': categoryId,
       'create_at': createAt?.toIso8601String(),
@@ -33,7 +32,7 @@ class Transactions {
     return Transactions(
       id: map['id'] as int,
       amount: map['amount'],
-      date: map['date'],
+      date: map['date'] != null ? DateTime.parse(map['date']) : null,
       isIncome: map['isIncome'] == 1 ? true : false,
       categoryId: map['categoryId'],
       createAt: map['create_at'] != null ? DateTime.parse(map['create_at']) : null,

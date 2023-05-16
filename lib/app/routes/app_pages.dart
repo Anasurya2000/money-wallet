@@ -4,6 +4,7 @@ import 'package:money_wallet/app/modules/login/views/add_amount_view.dart';
 
 import '../modules/graph/bindings/graph_binding.dart';
 import '../modules/graph/views/graph_view.dart';
+import '../modules/home/bindings/category_binding.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
@@ -18,7 +19,7 @@ class AppPages {
   static final bool isLogin = StorageHelper.isLogin;
   static final bool isAmountAdded = StorageHelper.isAmountAdded;
 
-  static String initial = isLogin ? (isAmountAdded ? _Paths.home : _Paths.addAmount) : _Paths.login;
+  static String initial = isLogin ? (isAmountAdded ? _Paths.home : _Paths.addAmount) : _Paths.root;
 
   static final routes = [
     GetPage(
@@ -43,6 +44,7 @@ class AppPages {
     GetPage(
       name: _Paths.addAmount,
       page: () => const AddAmount(),
+      binding: CategoryBinding(),
     ),
   ];
 }

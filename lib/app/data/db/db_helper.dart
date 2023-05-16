@@ -33,7 +33,7 @@ class DbHelper {
   FutureOr<void> _onCreate(Database db, int version) {
     db.execute(''' 
       CREATE TABLE $_transactionTable(
-      id TEXT PRIMARY KEY,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
       amount REAL,
       isIncome INT,
       categoryId INT,
@@ -43,13 +43,13 @@ class DbHelper {
 ''');
     db.execute(''' 
       CREATE TABLE $_userTable(
-      id TEXT PRIMARY KEY,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT
     )
 ''');
     db.execute(''' 
       CREATE TABLE $_categoryTable(
-      id TEXT PRIMARY KEY,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT,
       type TEXT,
       created_at TEXT,
@@ -95,9 +95,18 @@ class DbHelper {
     return await db.delete(_transactionTable, where: 'id = ?', whereArgs: [transactions.id]);
   }
 
-  Future<int> insertCategory(Category category) async {
-    Database db = await instance.database;
-    return await db.insert(_categoryTable, category.toMap());
+  Future<Category> insertCategory(Category category) async {
+    try {
+      Database db = await instance.database;
+      List<Map<String, dynamic>> maps = await db.query(_categoryTable, where: 'name = ?', whereArgs: [category.name]);
+      if (maps.isNotEmpty) {
+        return Category.fromMap(maps.first);
+      }
+      int id = await db.insert(_categoryTable, category.toMap());
+      return category.copyWith(id: id);
+    } on Exception catch (e) {
+      throw Exception(e);
+    }
   }
 
   Future<int> updateCategory(Category category) async {
@@ -105,10 +114,14 @@ class DbHelper {
     return await db.update(_categoryTable, category.toMap(), where: 'id = ?', whereArgs: [category.id]);
   }
 
-  Future<List<Category>> getCategory() async {
-    Database db = await instance.database;
-    List<Map<String, dynamic>> maps = await db.query(_categoryTable);
-    return List.generate(maps.length, (index) => Category.fromMap(maps[index]));
+  Future<List<Category>?> getCategory() async {
+    try {
+      Database db = await instance.database;
+      List<Map<String, dynamic>> maps = await db.query(_categoryTable);
+      return List.generate(maps.length, (index) => Category.fromMap(maps[index]));
+    } on Exception catch (e) {
+      throw Exception(e);
+    }
   }
 
   Future<int> deleteCategory(Category category) async {

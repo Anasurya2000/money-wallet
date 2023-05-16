@@ -14,10 +14,9 @@ class Category {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
       'name': name,
       'type': type,
-      'create_at': createAt?.toIso8601String(),
+      'created_at': createAt?.toIso8601String(),
       'update_at': updateAt?.toIso8601String(),
     };
   }
@@ -27,8 +26,24 @@ class Category {
       id: map['id'],
       name: map['name'],
       type: map['type'],
-      createAt: map['create_at'] != null ? DateTime.parse(map['create_at']) : null,
+      createAt: map['created_at'] != null ? DateTime.parse(map['created_at']) : null,
       updateAt: map['update_at'] != null ? DateTime.parse(map['update_at']) : null,
+    );
+  }
+
+  Category copyWith({
+    int? id,
+    String? name,
+    String? type,
+    DateTime? createAt,
+    DateTime? updateAt,
+  }) {
+    return Category(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      type: type ?? this.type,
+      createAt: createAt ?? this.createAt,
+      updateAt: updateAt ?? this.updateAt,
     );
   }
 }

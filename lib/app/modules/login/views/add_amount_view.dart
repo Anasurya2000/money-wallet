@@ -1,38 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:money_wallet/app/data/model/category.dart';
+import 'package:money_wallet/app/data/model/transaction.dart';
+import 'package:money_wallet/app/modules/home/controllers/category_controller.dart';
 import 'package:money_wallet/app/modules/login/controllers/login_controller.dart';
 
 import '../../../constant/app_constant.dart';
-import '../../../routes/app_pages.dart';
-
-class CatController extends GetxController {
-  final RxList<String> _categoryList = <String>[
-    'Salary',
-    'Saving',
-    'Credit',
-  ].obs;
-
-  List<String> get categoryList => _categoryList;
-
-  final RxList<String> _selectedCategory = <String>[].obs;
-  List<String> get selectedCategory => _selectedCategory;
-
-  void addCategory(String category) {
-    _categoryList.add(category);
-  }
-
-  void selectCategory(String category) {
-    _selectedCategory.add(category);
-  }
-
-  void removeCategory(String category) {
-    _selectedCategory.remove(category);
-  }
-
-  void clearCategory() {
-    _selectedCategory.clear();
-  }
-}
 
 class AddAmount extends StatefulWidget {
   const AddAmount({super.key});
@@ -42,13 +17,14 @@ class AddAmount extends StatefulWidget {
 }
 
 class _AddAmountState extends State<AddAmount> {
-  final categoryController = TextEditingController();
-  final catController = Get.put(CatController());
+  final amountController = TextEditingController();
+  final controller = Get.put(CategoryController());
   final LoginController loginController = Get.put(LoginController());
 
   @override
   void initState() {
     loginController.getUser();
+    controller.getCategory();
     super.initState();
   }
 
@@ -92,6 +68,7 @@ class _AddAmountState extends State<AddAmount> {
                     ),
                     const SizedBox(height: 20),
                     TextFormField(
+                      controller: amountController,
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
                         prefixText: '₹ ',
@@ -101,34 +78,23 @@ class _AddAmountState extends State<AddAmount> {
                     const SizedBox(height: 20),
                     Text('Choose Category', style: theme.textTheme.bodyMedium),
                     const SizedBox(height: 10),
-                    Text(
-                      'Suggestions',
-                      style: theme.textTheme.bodySmall?.copyWith(color: Colors.white70),
-                    ),
-                    const SizedBox(height: 10),
                     Obx(() => Wrap(
-                        spacing: 10,
-                        runSpacing: 10,
-                        children: List.generate(
-                          catController.categoryList.length,
-                          (index) => ChoiceChip(
-                            label: Text(catController.categoryList[index]),
-                            selected: catController.selectedCategory.contains(
-                              catController.categoryList[index],
+                          spacing: 6,
+                          runSpacing: 6,
+                          children: [
+                            ...controller.incomeCategory().map((e) => FilterChip(
+                                  label: Text(e.name.toString()),
+                                  selected: controller.selectedCategory.name == e.name,
+                                  onSelected: (value) => controller.selectedCategory = e,
+                                )),
+                            ChoiceChip(
+                              avatar: const Icon(Icons.add, color: Colors.white),
+                              label: const Text('Create new category'),
+                              selected: false,
+                              onSelected: (value) => addCategory(context),
                             ),
-                            onSelected: (value) {
-                              if (value) {
-                                catController.selectCategory(
-                                  catController.categoryList[index],
-                                );
-                              } else {
-                                catController.removeCategory(
-                                  catController.categoryList[index],
-                                );
-                              }
-                            },
-                          ),
-                        ))),
+                          ],
+                        )),
                   ],
                 ),
               ),
@@ -137,69 +103,88 @@ class _AddAmountState extends State<AddAmount> {
         }),
       ),
       floatingActionButton: FloatingActionButton.extended(
-          icon: const Icon(Icons.keyboard_arrow_right),
-          onPressed: () => Get.offAllNamed(Routes.home),
-          label: const Text('Next')),
+        icon: const Icon(FeatherIcons.check, size: 16),
+        onPressed: () {
+          if (amountController.text.isEmpty) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Please enter the amount to continue'),
+              ),
+            );
+            return;
+          }
+          final Transactions transaction = Transactions(
+            amount: double.parse(amountController.text),
+            isIncome: true,
+            categoryId: controller.selectedCategory.id,
+            date: DateTime.now(),
+            createAt: DateTime.now(),
+          );
+          print(transaction.toMap());
+        },
+        label: const Text('Add my amount'),
+        backgroundColor: theme.colorScheme.primary,
+        foregroundColor: theme.colorScheme.onPrimary,
+      ),
     );
   }
 
-  Future<dynamic> addCategory(BuildContext context) {
-    return showModalBottomSheet(
-        context: context,
-        builder: (context) {
-          return Container(
-            // height: 270,
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 12),
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(6),
-                topRight: Radius.circular(6),
-              ),
-              color: Colors.white,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Choose Category',
-                  style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
-                ),
-                const SizedBox(height: 15),
-                TextFormField(
-                  controller: categoryController,
-                  style: const TextStyle(color: Colors.black),
-                  decoration: const InputDecoration(
-                    prefixIcon: Icon(
-                      Icons.wallet,
-                      color: Colors.black,
-                    ),
-                    border: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
-                    ),
+  Future<void> addCategory(BuildContext context) async {
+    showBarModalBottomSheet(
+      context: context,
+      builder: (_) => const _AddNewCategory(),
+      backgroundColor: Get.theme.scaffoldBackgroundColor,
+    );
+  }
+}
+
+class _AddNewCategory extends StatelessWidget {
+  const _AddNewCategory();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final controller = Get.put(CategoryController());
+    return SingleChildScrollView(
+      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      child: Padding(
+        padding: AppConstant.defaultPadding,
+        child: Form(
+          key: controller.categoryFormKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Text('Add new category', style: theme.textTheme.titleLarge),
+                  const Spacer(),
+                  IconButton(
+                    onPressed: () => Get.back(),
+                    icon: const Icon(FeatherIcons.x),
                   ),
-                ),
-                const SizedBox(height: 15),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    ElevatedButton(
-                        child: const Text('Add'),
-                        onPressed: () {
-                          // Get.to(categoryController.text);
-                          // Get.toNamed(Routes.home);
-                          setState(() {
-                            const AddAmount();
-                            // categoryController.clear();
-                            Get.back();
-                          });
-                          // categoryController.clear();
-                        }),
-                  ],
-                ),
-              ],
-            ),
-          );
-        });
+                ],
+              ),
+              TextFormField(
+                controller: controller.nameController,
+                decoration: const InputDecoration(hintText: 'Enter category name'),
+                validator: (value) => value!.isEmpty ? 'Please enter category name' : null,
+              ),
+              const SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: () {
+                  if (controller.categoryFormKey.currentState!.validate()) {
+                    final category = Category(name: controller.nameController.text, type: 'income');
+                    controller.createCategory(category);
+                    Get.back();
+                  }
+                },
+                child: const Text('Add category'),
+              ),
+              const SizedBox(height: 30),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
