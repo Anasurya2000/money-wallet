@@ -173,7 +173,7 @@ class _AddNewCategory extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   if (controller.categoryFormKey.currentState!.validate()) {
-                    final category = Category(name: controller.nameController.text, type: 'income');
+                    final category = Category(name: controller.nameController.text.capitalizeFirst, type: 'income');
                     controller.createCategory(category);
                     Get.back();
                   }
