@@ -127,9 +127,7 @@ class _TotalExpenseState extends State<TotalExpense> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-          icon: const Icon(Icons.keyboard_arrow_right),
-          onPressed: () => Get.offAllNamed(Routes.home),
-          label: const Text('Next')),
+          icon: const Icon(Icons.keyboard_arrow_right), onPressed: () => Get.offAllNamed(Routes.home), label: const Text('Next')),
     );
   }
 
