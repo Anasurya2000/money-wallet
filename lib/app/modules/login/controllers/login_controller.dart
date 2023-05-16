@@ -3,8 +3,7 @@ import 'package:get/get.dart';
 import 'package:money_wallet/app/data/db/db_helper.dart';
 import 'package:money_wallet/app/data/helper/storage_helper.dart';
 import 'package:money_wallet/app/data/model/user.dart';
-
-import '../views/add_amount_view.dart';
+import 'package:money_wallet/app/routes/app_pages.dart';
 
 class LoginController extends GetxController {
   final nameController = TextEditingController();
@@ -20,7 +19,7 @@ class LoginController extends GetxController {
     final user = User(name: nameController.text);
     await DbHelper.instance.insertUser(user).then((_) {
       StorageHelper.isLogin = true;
-      Get.to(() => const AddAmount());
+      Get.toNamed(Routes.addAmount);
     });
   }
 
